@@ -1,0 +1,10 @@
+{
+  "name": "@agama/types",
+  "version": "0.1.0",
+  "description": "Agama types module",
+  "main": "src/index.js",
+  "typings": "src/index",
+  "keywords": [],
+  "author": "Albert Cuartiella <cuarti1992@gmail.com>",
+  "license": "MIT"
+}
