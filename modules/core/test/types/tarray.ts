@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tarray} from '../src/tarray';
+import {tarray} from '../../src';
 
 
 describe('@agama/types/tarray', () => {

@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tnumber} from '../src/tnumber';
+import {tnumber} from '../../src';
 
 
 describe('@agama/types/tnumber', () => {

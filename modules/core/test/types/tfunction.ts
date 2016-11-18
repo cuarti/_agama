@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tfunction} from '../src/tfunction';
+import {tfunction} from '../../src';
 
 
 describe('@agama/types/tfunction', () => {

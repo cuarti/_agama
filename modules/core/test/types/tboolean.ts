@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tboolean} from '../src/tboolean';
+import {tboolean} from '../../src';
 
 
 describe('@agama/types/tboolean', () => {

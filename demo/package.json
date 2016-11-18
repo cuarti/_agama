@@ -3,13 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "Albert Cuartiella <cuarti1992@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@agama/types": "file:///home/cuarti/programming/lib/js/agama/src/modules/types"
+    "@agama/core": "file:///home/cuarti/programming/lib/js/agama/src/modules/core"
   }
 }

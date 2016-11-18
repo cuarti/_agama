@@ -1,7 +1,7 @@
 {
-  "name": "@agama/types",
+  "name": "@agama/core",
   "version": "0.1.0",
-  "description": "Agama types module",
+  "description": "Agama core module",
   "main": "src/index.js",
   "typings": "src/index",
   "keywords": [],

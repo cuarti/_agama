@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tstring} from '../src/tstring';
+import {tstring} from '../../src';
 
 
 describe('@agama/types/tstring', () => {

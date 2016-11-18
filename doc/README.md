@@ -1,3 +1,6 @@
 
-* Acabar de implementar los types
-* Añadir test de los types
+* Añadir a @agama/core: util (cambiar nombre a helper), platform y uuid
+* Añadir nuevas funcionalidades a types, tomar como referencia:
+    - Underscore
+    - Lodash
+* Añadir a los tests las nuevas funcionalidades de types

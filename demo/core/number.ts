@@ -1,5 +1,5 @@
 
-import {tnumber} from '@agama/types';
+import {tnumber} from '@agama/core';
 
 
 console.log(tnumber.TYPE);

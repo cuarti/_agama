@@ -1,6 +1,6 @@
 
 import * as assert from 'assert';
-import {tdate} from '../src/tdate';
+import {tdate} from '../../src';
 
 
 describe('@agama/types/tdate', () => {
