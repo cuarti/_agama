@@ -67,13 +67,13 @@ export module tobject {
      *
      * @param {Object}      o
      * @param {Function}    cb
-     * @param {Object}      [self]
+     * @param {Object}      [thisArg]
      */
-    export function forEach<T>(o: Object, cb: (v: T, k: string, o: Object) => void, self: Object): void {
+    export function forEach<T>(o: Object, cb: (v: T, k: string, o: Object) => void, thisArg: Object = o): void {
 
         for(let i in o) {
             if(o.hasOwnProperty(i)) {
-                tfunction.call(cb, self, o[i], i, o);
+                tfunction.call(cb, thisArg, o[i], i, o);
             }
         }
     }
@@ -83,16 +83,16 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {Function}  cb
-     * @param   {Object}    [self]
+     * @param   {Object}    [thisArg]
      * @returns {Object}
      */
-    export function map<T, N>(o: Object, cb: (v: T, k: string, o: Object) => N, self: Object): Object {
+    export function map<T, N>(o: Object, cb: (v: T, k: string, o: Object) => N, thisArg: Object = o): Object {
 
         let m = {};
 
         for(let k in o) {
             if(o.hasOwnProperty(k)) {
-                m[k] = tfunction.call(cb, self, o[k], k, o);
+                m[k] = tfunction.call(cb, thisArg, o[k], k, o);
             }
         }
 
@@ -104,15 +104,15 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {Function}  cb
-     * @param   {Object}    [self]
+     * @param   {Object}    [thisArg]
      * @returns {Object}
      */
-    export function filter<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, self: Object): Object {
+    export function filter<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): Object {
 
         let n = {};
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && tfunction.call(cb, self, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && tfunction.call(cb, thisArg, o[k], k, o)) {
                 n[k] = o[k];
             }
         }
@@ -125,15 +125,15 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {Function}  cb
-     * @param   {any}       r
-     * @param   {Object}    [self]
-     * @returns {any}
+     * @param   {*}         r
+     * @param   {Object}    [thisArg]
+     * @returns {*}
      */
-    export function reduce<T, R>(o: Object, cb: (r: R, v: T, k: string, o: Object) => R, r: R, self: Object): R {
+    export function reduce<T, R>(o: Object, cb: (r: R, v: T, k: string, o: Object) => R, r: R, thisArg: Object = o): R {
 
         for(let k in o) {
             if(o.hasOwnProperty(k)) {
-                r = <R> tfunction.call(cb, self, r, o[k], k, o);
+                r = <R> tfunction.call(cb, thisArg, r, o[k], k, o);
             }
         }
 
@@ -145,13 +145,13 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {Function}  cb
-     * @param   {Object}    [self]
+     * @param   {Object}    [thisArg]
      * @returns {boolean}
      */
-    export function every<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, self: Object): boolean {
+    export function every<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && !tfunction.call(cb, self, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && !tfunction.call(cb, thisArg, o[k], k, o)) {
                 return false;
             }
         }
@@ -164,13 +164,13 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {Function}  cb
-     * @param   {Object}    [self]
+     * @param   {Object}    [thisArg]
      * @returns {boolean}
      */
-    export function some<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, self: Object): boolean {
+    export function some<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && tfunction.call(cb, self, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && tfunction.call(cb, thisArg, o[k], k, o)) {
                 return true;
             }
         }

@@ -15,7 +15,7 @@ export module tstring {
     export const TYPE: string = 'string';
 
     /**
-     * Check if value is string
+     * Get if value is string
      *
      * @param   {*}         value
      * @returns {boolean}
@@ -35,27 +35,36 @@ export module tstring {
     }
 
     /**
-     * Check if string starts with substring
+     * Get if string contains substring
      *
      * @param   {string}    str
      * @param   {string}    substr
      * @returns {boolean}
-     * TODO: to implement
      */
-    export function startsWith(str: string, substr: string): boolean {
-        return false;
+    export function contains(str: string, substr: string): boolean {
+        return str.indexOf(substr) >= 0;
     }
 
     /**
-     * Check if string ends with substring
+     * Get if string starts with substring
      *
      * @param   {string}    str
      * @param   {string}    substr
      * @returns {boolean}
-     * TODO: to implement
+     */
+    export function startsWith(str: string, substr: string): boolean {
+        return str.indexOf(substr) === 0;
+    }
+
+    /**
+     * Get if string ends with substring
+     *
+     * @param   {string}    str
+     * @param   {string}    substr
+     * @returns {boolean}
      */
     export function endsWith(str: string, substr: string): boolean {
-        return false;
+        return str.indexOf(substr) === str.length - substr.length;
     }
 
     /**
@@ -65,26 +74,35 @@ export module tstring {
      * @returns {string}
      */
     export function humanize(str: string): string {
-        return firstToUpperCase(str.replace(/[A-Z]+/g, c => ' ' + c.toLowerCase())).split(/[-_]/).join(' ');
+        return firstToUpperCase(str[0] + str.substr(1)
+                .replace(/[a-z][A-Z]+/g, c => c[0] + ' ' + c.substr(1))
+                .toLowerCase()).split(/[-_]/).join(' ');
     }
 
     /**
-     * Add left padding of any character to text
+     * Enlarge string with substring
      *
-     * @param   {string}    text
-     * @param   {number}    size
-     * @param   {string}    padding
+     * @param   {string}    str
+     * @param   {string}    substr
+     * @param   {number}    length
+     * @param   {boolean}   [leading=true]
      * @returns {string}
-     * FIXME: only works if padding is a character (string with length equals to 1)
      */
-    export function leftPadding(text: string, size: number, padding: string): string {
+    export function enlarge(str: string, substr: string, length: number, leading: boolean = true): string {
 
-        let s = '';
-        for(let i = 0; i < size; i++) {
-            s += padding;
+        let part = '';
+        let partLength = length - str.length;
+        let loops = partLength / substr.length;
+
+        loops = Number.isInteger(loops) ? loops : Math.floor(loops) + 1;
+
+        for(let i = 0; i < loops; i ++) {
+            part += substr;
         }
 
-        return s.substring(0, size - text.length) + text;
+        part = part.substr(0, partLength);
+
+        return leading ? part + str : str + part;
     }
 
 }
