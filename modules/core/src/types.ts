@@ -1,9 +1,9 @@
 
 
-export * from './types/tboolean';
-export * from './types/tnumber';
-export * from './types/tstring';
-export * from './types/tobject';
-export * from './types/tarray';
-export * from './types/tfunction';
-export * from './types/tdate';
+export * from './types/TBoolean';
+export * from './types/TNumber';
+export * from './types/TString';
+export * from './types/TObject';
+export * from './types/TArray';
+export * from './types/TFunction';
+export * from './types/TDate';

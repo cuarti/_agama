@@ -1,8 +1,8 @@
 
-import {tnumber} from '@agama/core';
+import {TNumber} from '@agama/core';
 
 
-console.log(tnumber.TYPE);
-console.log(tnumber.is(5));
-console.log(tnumber.is(5.1));
-console.log(tnumber.is(true));
+console.log(TNumber.TYPE);
+console.log(TNumber.is(5));
+console.log(TNumber.is(5.1));
+console.log(TNumber.is(true));

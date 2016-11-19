@@ -1,5 +1,5 @@
 
-import {tfunction} from './tfunction';
+import {TFunction} from './TFunction';
 
 
 /**
@@ -8,32 +8,32 @@ import {tfunction} from './tfunction';
  * TODO: see http://underscorejs.org/#collections
  * TODO: see http://underscorejs.org/#objects
  */
-export module tobject {
+export class TObject {
 
     /**
      * Type of object
      *
      * @type {string}
      */
-    export const TYPE: string = 'object';
+    public static readonly TYPE: string = 'object';
 
     /**
-     * Check if value is object
+     * Get if value is object
      *
      * @param   {*}         value
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function is(value: any): boolean {
-        return typeof value === TYPE;
+    public static is(value: any): boolean {
+        return typeof value === this.TYPE;
     }
 
     /**
      * Get keys of object properties
      *
      * @param   {Object}    o
-     * @returns {string[]}
+     * @return  {string[]}
      */
-    export function keys(o: Object): Array<string> {
+    public static keys(o: Object): Array<string> {
         return Object.keys(o);
     }
 
@@ -41,24 +41,24 @@ export module tobject {
      * Get values of object properties
      *
      * @param   {Object}    o
-     * @returns {Array}
+     * @return  {Array}
      */
-    export function values<T>(o: Object): Array<T> {
+    public static values<T>(o: Object): Array<T> {
 
         let values: Array<T> = [];
 
-        this.forEach(o, v => values.push(v));
+        this.forEach<T>(o, v => values.push(v));
 
         return values;
     }
 
     /**
-     * Get length object properties
+     * Get size of object
      *
      * @param   {Object}    o
-     * @returns {number}
+     * @return  {number}
      */
-    export function length(o: Object): number {
+    public static size(o: Object): number {
         return this.keys(o).length;
     }
 
@@ -69,11 +69,11 @@ export module tobject {
      * @param {Function}    cb
      * @param {Object}      [thisArg]
      */
-    export function forEach<T>(o: Object, cb: (v: T, k: string, o: Object) => void, thisArg: Object = o): void {
+    public static forEach<T>(o: Object, cb: (v: T, k: string, o: Object) => void, thisArg: Object = o): void {
 
         for(let i in o) {
             if(o.hasOwnProperty(i)) {
-                tfunction.call(cb, thisArg, o[i], i, o);
+                TFunction.call(cb, thisArg, o[i], i, o);
             }
         }
     }
@@ -84,15 +84,15 @@ export module tobject {
      * @param   {Object}    o
      * @param   {Function}  cb
      * @param   {Object}    [thisArg]
-     * @returns {Object}
+     * @return  {Object}
      */
-    export function map<T, N>(o: Object, cb: (v: T, k: string, o: Object) => N, thisArg: Object = o): Object {
+    public static map<T, N>(o: Object, cb: (v: T, k: string, o: Object) => N, thisArg: Object = o): Object {
 
         let m = {};
 
         for(let k in o) {
             if(o.hasOwnProperty(k)) {
-                m[k] = tfunction.call(cb, thisArg, o[k], k, o);
+                m[k] = TFunction.call(cb, thisArg, o[k], k, o);
             }
         }
 
@@ -105,14 +105,14 @@ export module tobject {
      * @param   {Object}    o
      * @param   {Function}  cb
      * @param   {Object}    [thisArg]
-     * @returns {Object}
+     * @return  {Object}
      */
-    export function filter<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): Object {
+    public static filter<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): Object {
 
         let n = {};
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && tfunction.call(cb, thisArg, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && TFunction.call(cb, thisArg, o[k], k, o)) {
                 n[k] = o[k];
             }
         }
@@ -127,13 +127,13 @@ export module tobject {
      * @param   {Function}  cb
      * @param   {*}         r
      * @param   {Object}    [thisArg]
-     * @returns {*}
+     * @return  {*}
      */
-    export function reduce<T, R>(o: Object, cb: (r: R, v: T, k: string, o: Object) => R, r: R, thisArg: Object = o): R {
+    public static reduce<T, R>(o: Object, cb: (r: R, v: T, k: string, o: Object) => R, r: R, thisArg: Object = o): R {
 
         for(let k in o) {
             if(o.hasOwnProperty(k)) {
-                r = <R> tfunction.call(cb, thisArg, r, o[k], k, o);
+                r = <R> TFunction.call(cb, thisArg, r, o[k], k, o);
             }
         }
 
@@ -146,12 +146,12 @@ export module tobject {
      * @param   {Object}    o
      * @param   {Function}  cb
      * @param   {Object}    [thisArg]
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function every<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
+    public static every<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && !tfunction.call(cb, thisArg, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && !TFunction.call(cb, thisArg, o[k], k, o)) {
                 return false;
             }
         }
@@ -165,12 +165,12 @@ export module tobject {
      * @param   {Object}    o
      * @param   {Function}  cb
      * @param   {Object}    [thisArg]
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function some<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
+    public static some<T>(o: Object, cb: (v: T, k: string, o: Object) => boolean, thisArg: Object = o): boolean {
 
         for(let k in o) {
-            if(o.hasOwnProperty(k) && tfunction.call(cb, thisArg, o[k], k, o)) {
+            if(o.hasOwnProperty(k) && TFunction.call(cb, thisArg, o[k], k, o)) {
                 return true;
             }
         }
@@ -183,9 +183,9 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {string[]}  keys
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function hasKeys(o: Object, keys: Array<string>) {
+    public static hasKeys(o: Object, keys: Array<string>) {
         return keys.every(k => k in o);
     }
 
@@ -194,9 +194,9 @@ export module tobject {
      *
      * @param   {Object}    o
      * @param   {string[]}  keys
-     * @returns {Object}
+     * @return  {Object}
      */
-    export function extract(o: Object, keys: Array<string>) {
+    public static extract(o: Object, keys: Array<string>) {
         return this.filter(o, (v, k) => keys.indexOf(k) >= 0);
     }
 
@@ -207,7 +207,7 @@ export module tobject {
     //  * @param {Object} obj2
     //  * @returns {T}
     //  */
-    // export function extend<T>(obj1: T, obj2: Object): T {
+    // public static extend<T>(obj1: T, obj2: Object): T {
     //
     //     for(var i in obj2) {
     //         if(obj2.hasOwnProperty(i)) {

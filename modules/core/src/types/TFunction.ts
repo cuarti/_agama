@@ -1,25 +1,25 @@
 
 
 /**
- * Utility functions for function type
+ * Utility class for function type
  */
-export module tfunction {
+export class TFunction {
 
     /**
      * Instance for function
      *
      * @type    {FunctionConstructor}
      */
-    export const INSTANCE: FunctionConstructor = Function;
+    public static readonly INSTANCE: FunctionConstructor = Function;
 
     /**
-     * Check if value is Function
+     * Get if value is Function
      *
      * @param   {*}         value
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function is(value: any): boolean {
-        return value instanceof INSTANCE;
+    public static is(value: any): boolean {
+        return value instanceof this.INSTANCE;
     }
 
     /**
@@ -28,9 +28,9 @@ export module tfunction {
      * @param   {Function}  func
      * @param   {Object}    thisArg
      * @param   {...*}      args
-     * @returns {*}
+     * @return  {*}
      */
-    export function call<T>(func: Function, thisArg: Object, ...args: Array<any>): T {
+    public static call<T>(func: Function, thisArg: Object, ...args: Array<any>): T {
 
         if(this.is(func)) {
             return func.apply(thisArg, args);
@@ -43,9 +43,9 @@ export module tfunction {
      * @param   {Function}  func
      * @param   {Object}    thisArg
      * @param   {Array}     args
-     * @returns {*}
+     * @return  {*}
      */
-    export function apply<T>(func: Function, thisArg: Object, args: Array<any>): T {
+    public static apply<T>(func: Function, thisArg: Object, args: Array<any>): T {
 
         if(this.is(func)) {
             return func.apply(thisArg, args);

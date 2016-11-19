@@ -1,40 +1,40 @@
 
 
 /**
- * Utility functions for array type
+ * Utility class for array type
  *
  * TODO: see http://underscorejs.org/#collections
  * TODO: see http://underscorejs.org/#arrays
  */
-export module tarray {
+export class TArray {
 
     /**
      * Instance for Array
      *
      * @type    {ArrayConstructor}
      */
-    export const INSTANCE: ArrayConstructor = Array;
+    public static readonly INSTANCE: ArrayConstructor = Array;
 
     /**
-     * Check if value is Array
+     * Get if value is Array
      *
      * @param   {*}         value
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function is(value: any): boolean {
-        return value instanceof INSTANCE;
+    public static is(value: any): boolean {
+        return value instanceof this.INSTANCE;
     }
 
     /**
-     * Check if value is Array of type
+     * Get if value is Array of type
      *
      * @param   {*}                 value
      * @param   {string | Function} type
-     * @returns {boolean}
+     * @return  {boolean}
      */
-    export function isArrayOf(value: any, type: string | Function) {
+    public static isArrayOf(value: any, type: string | Function): boolean {
 
-        if(!is(value)) {
+        if(!this.is(value)) {
             return false;
         }
 
@@ -50,13 +50,14 @@ export module tarray {
     }
 
     /**
-     * Check if array contains element
+     * Get if array contains element
      *
      * @param   {Array}     arr
      * @param   {*}         search
      * @param   {number}    [from = 0]
+     * @return  {boolean}
      */
-    export function contains(arr: Array<any>, search: any, from: number = 0) {
+    public static contains(arr: Array<any>, search: any, from: number = 0): boolean {
         return arr.indexOf(search, from) >= 0;
     }
 
@@ -66,8 +67,9 @@ export module tarray {
      * @param   {Array}     arr
      * @param   {*}         search
      * @param   {number}    [from = 0]
+     * @return  {number[]}
      */
-    export function allIndexOf(arr: Array<any>, search: any, from: number = 0) {
+    public static allIndexOf(arr: Array<any>, search: any, from: number = 0): number[] {
 
         let f = [];
 
