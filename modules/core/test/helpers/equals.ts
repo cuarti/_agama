@@ -52,11 +52,16 @@ describe('@agama/core/helpers/equals', () => {
 
         // Array
         assert(equals([1, 2], [1, 2]));
+        assert(equals(['foo', {a: 1}], ['foo', {a: 1}], {deep: true}));
+        assert(!equals(['foo', {a: 1}], ['foo', {a: 1}]));
         assert(!equals(['a', 'b'], [1, 2]));
         assert(!equals([4, 'foo'], {0: 4, 1: 'foo'}));
 
         // Object
         assert(equals({a: 'foo', b: 1, c: true}, {a: 'foo', b: 1, c: true}));
+        assert(equals({a: 'foo', b: 'bar'}, {b: 'bar', a: 'foo'}));
+        assert(equals({a: 'foo', b: [true]}, {a: 'foo', b: [true]}, {deep: true}));
+        assert(!equals({a: 'foo', b: [true]}, {a: 'foo', b: [true]}));
         assert(!equals({a: 'foo', b: 1, c: true, d: [1, 2]}, {a: 'foo', b: 1, c: true, d: [1, 2]}));
         assert(!equals({a: 'foo', b: 1}, {a: 'foo', b: 1, c: true}));
         assert(!equals({a: 'foo', b: 1, c: {bar: 'baz'}}, {a: 'foo', b: 1, c: {bar: 'baz'}}));

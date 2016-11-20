@@ -1,10 +1,15 @@
 
 
+export interface EqualsConfig {
+    deep?: boolean;
+}
+
 /**
  * Get if one and other value are equals
  *
- * @param   {*} value
- * @param   {*} other
+ * @param   {*}             value
+ * @param   {*}             other
+ * @param   {EqualsConfig}  config
  * @return  {boolean}
  * TODO: Add optional configuration property to equals
  * TODO: Add optional config property (recursive | deep) to use equals function or identity operator (===) in properties of object
@@ -12,9 +17,10 @@
  * TODO: Add multiple parameters option to equals (change other: any to ...others: any[]}
  * TODO: Add support for other native objects, like Map, Set, WeakMap, WeakSet, etc
  */
-export function equals(value: any, other: any): boolean {
+export function equals(value: any, other: any, config?: EqualsConfig): boolean {
 
     //TODO: Here format config with optional properties
+    config = config || {};
 
     // Different types
     if(typeof value !== typeof other) {
@@ -45,9 +51,8 @@ export function equals(value: any, other: any): boolean {
 
     // Array
     if(value instanceof Array) {
-        return value.length !== other.length ? false : value.every((v, i) => v === other[i]);
-        // return value.length !== other.length ? false :
-        //     cfg.recursive ? value.every((v, i) => equals(v, other[i], cfg)) : value.every((v, i) => v === other[i]);
+        return value.length !== other.length ? false :
+            config.deep ? value.every((v, i) => equals(v, other[i], config)) : value.every((v, i) => v === other[i]);
     }
 
     //TODO: Here use equals method if have it
@@ -60,5 +65,7 @@ export function equals(value: any, other: any): boolean {
         return false;
     }
 
-    return vKeys.every((k, i) => k === oKeys[i] && value[k] === other[k]);
+    return vKeys.length !== oKeys.length ? false :
+        config.deep ? vKeys.every(k => equals(value[k], other[k], config)) : vKeys.every(k => value[k] === other[k]);
+    // return vKeys.every((k, i) => value[k] === other[k]);
 }
