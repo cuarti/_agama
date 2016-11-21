@@ -1,9 +1,36 @@
 
 import * as assert from 'assert';
-import {equals} from '../../src';
+import {equals, Equalitable} from '../../src';
 
 
 describe('@agama/core/helpers/equals', () => {
+
+    class Foo implements Equalitable {
+
+        private a;
+        private b;
+
+        public constructor(a, b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public equals(other: Object): boolean {
+
+            if(this === other) {
+                return true;
+            }
+
+            // if(!other.isPrototypeOf(Foo)) {
+            //     return false;
+            // }
+
+            let o = <Foo> other;
+
+            return this.a === o.a && this.b === o.b;
+        }
+
+    }
 
     it('equals', () => {
 
@@ -61,6 +88,9 @@ describe('@agama/core/helpers/equals', () => {
         assert(equals({a: 'foo', b: 1, c: true}, {a: 'foo', b: 1, c: true}));
         assert(equals({a: 'foo', b: 'bar'}, {b: 'bar', a: 'foo'}));
         assert(equals({a: 'foo', b: [true]}, {a: 'foo', b: [true]}, {deep: true}));
+        assert(equals(new Foo('foo', 1), new Foo('foo', 1)));
+        assert(equals([new Foo(1, 2)], [new Foo(1, 2)], {deep: true}));
+        assert(equals({foo: new Foo(1, 2)}, {foo: new Foo(1, 2)}, {deep: true}));
         assert(!equals({a: 'foo', b: [true]}, {a: 'foo', b: [true]}));
         assert(!equals({a: 'foo', b: 1, c: true, d: [1, 2]}, {a: 'foo', b: 1, c: true, d: [1, 2]}));
         assert(!equals({a: 'foo', b: 1}, {a: 'foo', b: 1, c: true}));

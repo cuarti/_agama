@@ -1,7 +1,20 @@
 
 
+/**
+ * Config for equals helper
+ */
 export interface EqualsConfig {
+
+    /**
+     * Use equals function for nested properties
+     */
     deep?: boolean;
+
+    /**
+     * Use equals helper method for objects that have it
+     */
+    helper?: boolean;
+
 }
 
 /**
@@ -9,18 +22,22 @@ export interface EqualsConfig {
  *
  * @param   {*}             value
  * @param   {*}             other
- * @param   {EqualsConfig}  config
+ * @param   {EqualsConfig}  [config]
+ * @param   {boolean}       [config.deep = false]
+ * @param   {boolean}       [config.helper = true]
  * @return  {boolean}
- * TODO: Add optional configuration property to equals
- * TODO: Add optional config property (recursive | deep) to use equals function or identity operator (===) in properties of object
- * TODO: Add optional config property? (equalitable | interface) to use equals method of objects that have it
  * TODO: Add multiple parameters option to equals (change other: any to ...others: any[]}
  * TODO: Add support for other native objects, like Map, Set, WeakMap, WeakSet, etc
  */
 export function equals(value: any, other: any, config?: EqualsConfig): boolean {
 
-    //TODO: Here format config with optional properties
     config = config || {};
+    config.helper = config.helper !== false;
+
+    // Same value for primitive variables and same instance for objects
+    if(value === other) {
+        return true;
+    }
 
     // Different types
     if(typeof value !== typeof other) {
@@ -31,7 +48,12 @@ export function equals(value: any, other: any, config?: EqualsConfig): boolean {
     if(typeof value === 'boolean' || typeof value === 'number' || typeof value === 'string' ||
         value === undefined || value === null) {
 
-        return value === other;
+        return false;
+    }
+
+    //Object with equals
+    if(config.helper && value.equals && value.equals(other)) {
+        return true;
     }
 
     // Different prototype
@@ -55,8 +77,6 @@ export function equals(value: any, other: any, config?: EqualsConfig): boolean {
             config.deep ? value.every((v, i) => equals(v, other[i], config)) : value.every((v, i) => v === other[i]);
     }
 
-    //TODO: Here use equals method if have it
-
     // Object
     let vKeys = Object.keys(value);
     let oKeys = Object.keys(other);
@@ -67,5 +87,4 @@ export function equals(value: any, other: any, config?: EqualsConfig): boolean {
 
     return vKeys.length !== oKeys.length ? false :
         config.deep ? vKeys.every(k => equals(value[k], other[k], config)) : vKeys.every(k => value[k] === other[k]);
-    // return vKeys.every((k, i) => value[k] === other[k]);
 }
