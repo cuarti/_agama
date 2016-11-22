@@ -26,7 +26,6 @@ export interface EqualsConfig {
  * @param   {boolean}       [config.deep = false]
  * @param   {boolean}       [config.helper = true]
  * @return  {boolean}
- * TODO: Add multiple parameters option to equals (change other: any to ...others: any[]}
  * TODO: Add support for other native objects, like Map, Set, WeakMap, WeakSet, etc
  */
 export function equals(value: any, other: any, config?: EqualsConfig): boolean {
