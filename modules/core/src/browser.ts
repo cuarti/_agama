@@ -1,17 +1,22 @@
 
 import * as types from './types';
 import * as helpers from './helpers';
+import * as validation from './validation';
 
 
 declare module window {
     export let agama: any
 }
 
-window.agama = (agama => {
+if(typeof window !== 'undefined' && window.agama) {
 
-    agama.types = types;
-    agama.helpers = helpers;
+    window.agama = (agama => {
 
-    return agama;
+        agama.types = types;
+        agama.helpers = helpers;
+        agama.validation = validation;
 
-})(window.agama || {});
+        return agama;
+
+    })(window.agama || {});
+}
