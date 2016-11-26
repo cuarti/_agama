@@ -68,6 +68,17 @@ export class TString {
     }
 
     /**
+     * Get number of occurrences of substring in string
+     *
+     * @param   {string}    str
+     * @param   {string}    substr
+     * @return  {number}
+     */
+    public static occurrences(str: string, substr: string): number {
+        return str.match(new RegExp(substr, 'g')).length;
+    }
+
+    /**
      * Transform string to human readable string
      *
      * @param   {string}    str
