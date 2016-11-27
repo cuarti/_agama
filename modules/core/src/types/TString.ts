@@ -75,7 +75,20 @@ export class TString {
      * @return  {number}
      */
     public static occurrences(str: string, substr: string): number {
-        return str.match(new RegExp(substr, 'g')).length;
+
+        let match = str.match(new RegExp(substr, 'g'));
+        return match ? match.length : 0;
+    }
+
+    /**
+     * Join strings
+     *
+     * @param   {string}    separator
+     * @param   {...string} strs
+     * @return {string}
+     */
+    public static join(separator: string, ...strs: string[]): string {
+        return strs.join(separator);
     }
 
     /**

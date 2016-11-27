@@ -44,6 +44,10 @@ describe('@agama/core/types/TString', () => {
         assert.equal(TString.occurrences('foo bar baz foobar', 'ba'), 3);
     });
 
+    it('TString.join', () => {
+        assert.equal(TString.join( '-', 'a', 'b', 'c', 'd'), 'a-b-c-d');
+    });
+
     it('TString.humanize', () => {
         assert.equal(TString.humanize('UserAgentAdapter'), 'User agent adapter');
         assert.equal(TString.humanize('userAgentAdapter'), 'User agent adapter');
