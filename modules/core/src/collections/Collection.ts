@@ -12,4 +12,6 @@ export interface Collection<K, V> extends Iterator<K, V> {
 
     remove(key: K): void;
 
+    size(): number;
+
 }
