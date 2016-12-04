@@ -82,4 +82,8 @@ export class TArray {
         return f;
     }
 
+    public static remove(arr: Array<any>, index: number): void {
+        arr.splice(index, 1);
+    }
+
 }
