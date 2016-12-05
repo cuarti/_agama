@@ -3,7 +3,7 @@
 /**
  * Utility class for boolean type
  */
-export class TBoolean {
+export class Boolean {
 
     /**
      * Type for boolean

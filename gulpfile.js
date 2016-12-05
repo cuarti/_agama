@@ -2,6 +2,7 @@
 
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
+const del = require('del');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const merge = require('merge2');
@@ -26,13 +27,26 @@ gulp.task('ts', () => {
 /**
  * Browserify modules
  */
-gulp.task('browserify', ['browserify.core']);
+gulp.task('browserify', ['browserify:core']);
 
 /**
  * Browserify @agama/core module
  */
-gulp.task('browserify.core', () => browserify('./modules/core/src/browser.js')
+gulp.task('browserify:core', () => browserify('./modules/core/src/browser.js')
     .bundle().pipe(source('agama-core.js')).pipe(gulp.dest('./modules/core/dist')));
+
+/**
+ * Clean builded files
+ */
+gulp.task('clean', () => {
+    return del([
+        '**/*.d.ts',
+        '**/*.js',
+        '!**/node_modules/**/*',
+        '!**/typings/**/*',
+        '!gulpfile.js'
+    ]);
+});
 
 /**
  * Watch for modifications and compile

@@ -1,24 +1,24 @@
 
 import * as assert from 'assert';
-import {TBoolean} from '../../src';
+import {Boolean} from '../../src';
 
 
-describe('@agama/core/types/TBoolean', () => {
+describe('@agama/core/types/Boolean', () => {
 
-    it('TBoolean.TYPE', () => assert.equal(TBoolean.TYPE, 'boolean'));
+    it('Boolean.TYPE', () => assert.equal(Boolean.TYPE, 'boolean'));
 
-    it('TBoolean.is', () => {
-        assert(TBoolean.is(true));
-        assert(TBoolean.is(false));
-        assert(!TBoolean.is(4));
-        assert(!TBoolean.is(3.14));
-        assert(!TBoolean.is(NaN));
-        assert(!TBoolean.is(null));
-        assert(!TBoolean.is(undefined));
-        assert(!TBoolean.is('text'));
-        assert(!TBoolean.is('219'));
-        assert(!TBoolean.is({foo: 317}));
-        assert(!TBoolean.is([0, 1]));
+    it('Boolean.is', () => {
+        assert(Boolean.is(true));
+        assert(Boolean.is(false));
+        assert(!Boolean.is(4));
+        assert(!Boolean.is(3.14));
+        assert(!Boolean.is(NaN));
+        assert(!Boolean.is(null));
+        assert(!Boolean.is(undefined));
+        assert(!Boolean.is('text'));
+        assert(!Boolean.is('219'));
+        assert(!Boolean.is({foo: 317}));
+        assert(!Boolean.is([0, 1]));
     });
 
 });
