@@ -122,7 +122,7 @@ export class TBoolean {
      * Clone boolean
      */
     public clone(): TBoolean {
-        return new TBoolean(this.value);
+        return new TBoolean(this.val);
     }
 
     /**
