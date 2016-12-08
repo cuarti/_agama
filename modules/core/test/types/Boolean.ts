@@ -12,6 +12,7 @@ describe('@agama/core/types/Boolean', () => {
 
     //TODO: Pasar estos tests de Boolean#value a Boolean.parse
     it('Boolean#value', () => {
+
         assert.equal(new TBoolean(true).value(), true);
         assert.equal(new TBoolean('true').value(), true);
         assert.equal(new TBoolean(1).value(), true);
