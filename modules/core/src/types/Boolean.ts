@@ -40,7 +40,7 @@ export class TBoolean {
      * @constructor
      */
     public constructor(value: any) {
-        this.val = value;
+        this.val = TBoolean.parse(value);
     }
 
     /**
@@ -82,7 +82,7 @@ export class TBoolean {
      * @return  {TBoolean}
      */
     public static valueOf(value: any): TBoolean {
-        return new TBoolean(TBoolean.parse(value));
+        return new TBoolean(value);
     }
 
     /**

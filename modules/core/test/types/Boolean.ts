@@ -10,7 +10,29 @@ describe('@agama/core/types/Boolean', () => {
 
     it('Boolean.FALSE', () => assert.equal(TBoolean.FALSE, false));
 
-    it('Boolean#value', () => assert.equal(new TBoolean(true).value(), true));
+    //TODO: Pasar estos tests de Boolean#value a Boolean.parse
+    it('Boolean#value', () => {
+        assert.equal(new TBoolean(true).value(), true);
+        assert.equal(new TBoolean('true').value(), true);
+        assert.equal(new TBoolean(1).value(), true);
+        assert.equal(new TBoolean('1').value(), true);
+        assert.equal(new TBoolean('-5').value(), true);
+        assert.equal(new TBoolean('64').value(), true);
+        assert.equal(new TBoolean(false).value(), false);
+        assert.equal(new TBoolean('false').value(), false);
+        assert.equal(new TBoolean(0).value(), false);
+        assert.equal(new TBoolean('0').value(), false);
+        assert.equal(new TBoolean(NaN).value(), false);
+        assert.equal(new TBoolean('').value(), false);
+        assert.equal(new TBoolean('foo').value(), false);
+        assert.equal(new TBoolean(undefined).value(), false);
+        assert.equal(new TBoolean(null).value(), false);
+        assert.equal(new TBoolean({}).value(), false);
+        assert.equal(new TBoolean([]).value(), false);
+        assert.equal(new TBoolean(function() {}).value(), false);
+        assert.equal(new TBoolean({a: 'foo', b: 3}).value(), false);
+        assert.equal(new TBoolean([1, 2]).value(), false);
+    });
 
     it('Boolean.is', () => {
         assert(TBoolean.is(true));
