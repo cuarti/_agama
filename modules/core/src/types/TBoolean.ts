@@ -31,16 +31,72 @@ export class TBoolean {
      *
      * @type    {boolean}
      */
-    private val: boolean;
+    private value: boolean;
 
     /**
      * Constructor method
      *
-     * @param   {*} value
+     * @param   {*} [value = false]
      * @constructor
      */
-    public constructor(value: any) {
-        this.val = TBoolean.parse(value);
+    public constructor(value: any = false) {
+        this.setValue(value);
+    }
+
+    /**
+     * Get value
+     *
+     * @return  {boolean}
+     */
+    public getValue(): boolean {
+        return this.value;
+    }
+
+    /**
+     * Set value
+     *
+     * @param   {*} value
+     * @return  {TBoolean}
+     */
+    public setValue(value: any): TBoolean {
+        this.value = TBoolean.parse(value);
+        return this;
+    }
+
+    /**
+     * Clone boolean
+     */
+    public clone(): TBoolean {
+        return new TBoolean(this.value);
+    }
+
+    /**
+     * Get if this and another value are equals
+     *
+     * @param   {boolean | TBoolean} value
+     * @return  {boolean}
+     */
+    public equals(value: boolean | TBoolean): boolean {
+        return this.value === (TBoolean.is(value) ? value : (<TBoolean> value).getValue());
+    }
+
+    /**
+     * Get order of this respect another value
+     *
+     * @param   {boolean | TBoolean}    value
+     * @return  {number}
+     */
+    public compareTo(value: boolean | TBoolean): number {
+        return TBoolean.compare(this.value, value);
+    }
+
+    /**
+     * Transform value to string
+     *
+     * @return  {string}
+     */
+    public toString(): string {
+        return this.value.toString();
     }
 
     /**
@@ -61,18 +117,20 @@ export class TBoolean {
      */
     public static parse(value: any): boolean {
 
-        return value instanceof TBoolean ? value.value()
-            : value === true || value === 'true' || (!Number.isNaN(value) && value !== 0);
-    }
+        if(value instanceof TBoolean) {
+            return value.getValue();
+        }
 
-    /**
-     * Get string representation of value
-     *
-     * @param   {boolean | TBoolean}    value
-     * @return  {string}
-     */
-    public static toString(value: boolean | TBoolean): string {
-        return value.toString();
+        if(value === true || value === 'true') {
+            return true;
+        }
+
+        //TODO: Use types to check this
+        if(typeof value === 'number' || (!isNaN(value) && typeof value === 'string')) {
+            return value != 0 && !isNaN(<any> value);
+        }
+
+        return false;
     }
 
     /**
@@ -94,8 +152,8 @@ export class TBoolean {
      */
     public static compare(a: boolean | TBoolean, b: boolean | TBoolean): number {
 
-        a = TBoolean.is(a) ? a : (<TBoolean> a).value();
-        b = TBoolean.is(b) ? b : (<TBoolean> b).value();
+        a = TBoolean.is(a) ? a : (<TBoolean> a).getValue();
+        b = TBoolean.is(b) ? b : (<TBoolean> b).getValue();
 
         if(a && !b) {
             return 1;
@@ -109,48 +167,13 @@ export class TBoolean {
     }
 
     /**
-     * Get order of this respect another value
+     * Get string representation of value
      *
      * @param   {boolean | TBoolean}    value
-     * @return  {number}
-     */
-    public compareTo(value: boolean | TBoolean): number {
-        return TBoolean.compare(this.val, value);
-    }
-
-    /**
-     * Clone boolean
-     */
-    public clone(): TBoolean {
-        return new TBoolean(this.val);
-    }
-
-    /**
-     * Get if this and another value are equals
-     *
-     * @param   {boolean | TBoolean} value
-     * @return  {boolean}
-     */
-    public equals(value: boolean | TBoolean): boolean {
-        return this.val === (TBoolean.is(value) ? value : (<TBoolean> value).value());
-    }
-
-    /**
-     * Transform value to string
-     *
      * @return  {string}
      */
-    public toString(): string {
-        return this.val.toString();
-    }
-
-    /**
-     * Get boolean value
-     *
-     * @return  {boolean}
-     */
-    public value(): boolean {
-        return this.val;
+    public static toString(value: boolean | TBoolean): string {
+        return value.toString();
     }
 
 }
