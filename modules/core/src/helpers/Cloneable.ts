@@ -1,11 +1,11 @@
 
 /**
- * Object that can get a clone
+ * Object that can clone
  */
 export interface Cloneable {
 
     /**
-     * Get a clone
+     * Cloned value
      *
      * @return  {Object}
      */

@@ -1,9 +1,13 @@
 
+import {Equalitable} from '../helpers/Equalitable';
+import {Cloneable} from '../helpers/Cloneable';
+import {Comparable} from '../helpers/Comparable';
+
 
 /**
  * Utility class for boolean type
  */
-export class TBoolean {
+export class BooleanType implements Equalitable, Cloneable, Comparable<boolean | BooleanType> {
 
     /**
      * Type for boolean
@@ -11,6 +15,13 @@ export class TBoolean {
      * @type    {string}
      */
     public static readonly TYPE: string = 'boolean';
+
+    /**
+     * Default value
+     *
+     * @type    {boolean}
+     */
+    public static readonly DEFAULT_VALUE: boolean = false;
 
     /**
      * True value
@@ -36,11 +47,11 @@ export class TBoolean {
     /**
      * Constructor method
      *
-     * @param   {*} [value = false]
+     * @param   {boolean}   value
      * @constructor
      */
-    public constructor(value: any = false) {
-        this.setValue(value);
+    public constructor(value: boolean) {
+        this.value = value;
     }
 
     /**
@@ -56,38 +67,34 @@ export class TBoolean {
      * Set value
      *
      * @param   {*} value
-     * @return  {TBoolean}
+     * @return  {BooleanType}
      */
-    public setValue(value: any): TBoolean {
-        this.value = TBoolean.parse(value);
+    public setValue(value: boolean): BooleanType {
+        this.value = value;
         return this;
     }
 
-    /**
-     * Clone boolean
-     */
-    public clone(): TBoolean {
-        return new TBoolean(this.value);
+    public clone(): BooleanType {
+        return new BooleanType(this.value);
     }
 
-    /**
-     * Get if this and another value are equals
-     *
-     * @param   {boolean | TBoolean} value
-     * @return  {boolean}
-     */
-    public equals(value: boolean | TBoolean): boolean {
-        return this.value === (TBoolean.is(value) ? value : (<TBoolean> value).getValue());
+    public equals(other: boolean | BooleanType): boolean {
+        return this.value === (BooleanType.is(other) ? other : (<BooleanType> other).getValue());
     }
 
-    /**
-     * Get order of this respect another value
-     *
-     * @param   {boolean | TBoolean}    value
-     * @return  {number}
-     */
-    public compareTo(value: boolean | TBoolean): number {
-        return TBoolean.compare(this.value, value);
+    public compareTo(value: boolean | BooleanType): number {
+
+        value = BooleanType.is(value) ? value : (<BooleanType> value).getValue();
+
+        if(this.value && !value) {
+            return 1;
+        }
+
+        if(!this.value && value) {
+            return -1;
+        }
+
+        return 0;
     }
 
     /**
@@ -117,7 +124,7 @@ export class TBoolean {
      */
     public static parse(value: any): boolean {
 
-        if(value instanceof TBoolean) {
+        if(value instanceof BooleanType) {
             return value.getValue();
         }
 
@@ -130,49 +137,26 @@ export class TBoolean {
             return value != 0 && !isNaN(<any> value);
         }
 
-        return false;
+        return BooleanType.DEFAULT_VALUE;
     }
 
     /**
      * Get boolean value of some value
      *
      * @param   {*} value
-     * @return  {TBoolean}
+     * @return  {BooleanType}
      */
-    public static valueOf(value: any): TBoolean {
-        return new TBoolean(value);
-    }
-
-    /**
-     * Get order between two values
-     *
-     * @param   {boolean | TBoolean}    a
-     * @param   {boolean | TBoolean}    b
-     * @return  {number}
-     */
-    public static compare(a: boolean | TBoolean, b: boolean | TBoolean): number {
-
-        a = TBoolean.is(a) ? a : (<TBoolean> a).getValue();
-        b = TBoolean.is(b) ? b : (<TBoolean> b).getValue();
-
-        if(a && !b) {
-            return 1;
-        }
-
-        if(!a && b) {
-            return -1;
-        }
-
-        return 0;
+    public static valueOf(value: any): BooleanType {
+        return new BooleanType(BooleanType.parse(value));
     }
 
     /**
      * Get string representation of value
      *
-     * @param   {boolean | TBoolean}    value
+     * @param   {boolean | BooleanType}    value
      * @return  {string}
      */
-    public static toString(value: boolean | TBoolean): string {
+    public static toString(value: boolean | BooleanType): string {
         return value.toString();
     }
 

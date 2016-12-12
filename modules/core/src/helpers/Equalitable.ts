@@ -6,6 +6,7 @@
 export interface Equalitable {
 
     /**
+     * Get if this and another value are equals
      *
      * @param   {Object}    other
      * @return  {boolean}
