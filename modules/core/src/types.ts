@@ -1,7 +1,7 @@
 
 
 export * from './types/BooleanType';
-export * from './types/TNumber';
+export * from './types/NumberType';
 export * from './types/TString';
 export * from './types/TObject';
 export * from './types/TArray';

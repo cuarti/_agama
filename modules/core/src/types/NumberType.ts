@@ -1,9 +1,16 @@
 
+import {Equalitable} from '../helpers/Equalitable';
+import {Cloneable} from '../helpers/Cloneable';
+import {Comparable} from '../helpers/Comparable';
+
 
 /**
  * Utility class for number type
+ *
+ * TODO: Add number operators, like add minus, plus, divide, etc?
+ * TODO: Change DEFAULT_VALUE, EPSILON, MAX_SAFE_INGER, MAX_INTEGER, etc types from number to NumberType?
  */
-export class TNumber {
+export class NumberType implements Equalitable, Cloneable, Comparable<number | NumberType> {
 
     /**
      * Type for number
@@ -11,6 +18,13 @@ export class TNumber {
      * @type    {string}
      */
     public static readonly TYPE: string = 'number';
+
+    /**
+     * Default value
+     *
+     * @type    {number}
+     */
+    public static readonly DEFAULT_VALUE: number = 0;
 
     /**
      * Epsilon value
@@ -78,11 +92,11 @@ export class TNumber {
     /**
      * Constructor method
      *
-     * @param   {*} [value = 0]
+     * @param   {number}    value
      * @constructor
      */
-    public constructor(value: any = 0) {
-        this.setValue(value);
+    public constructor(value: number) {
+        this.value = value;
     }
 
     /**
@@ -97,11 +111,11 @@ export class TNumber {
     /**
      * Set value
      *
-     * @param   {*} value
-     * @return  {TNumber}
+     * @param   {number}    value
+     * @return  {NumberType}
      */
-    public setValue(value: any): TNumber {
-        this.value = TNumber.parse(value);
+    public setValue(value: number): NumberType {
+        this.value = value;
         return this;
     }
 
@@ -135,31 +149,27 @@ export class TNumber {
         return this.value.toPrecision(precision);
     }
 
-    /**
-     * Clone number
-     */
-    public clone(): TNumber {
-        return new TNumber(this.value);
+    public clone(): NumberType {
+        return new NumberType(this.value);
     }
 
-    /**
-     * Get if this and another value are equals
-     *
-     * @param   {number | TNumber} value
-     * @return  {boolean}
-     */
-    public equals(value: number | TNumber): boolean {
-        return this.value === (TNumber.is(value) ? value : (<TNumber> value).getValue());
+    public equals(other: number | NumberType): boolean {
+        return this.value === (NumberType.is(other) ? other : (<NumberType> other).getValue());
     }
 
-    /**
-     * Get order of this respect another value
-     *
-     * @param   {number | TNumber}    value
-     * @return  {number}
-     */
-    public compareTo(value: number | TNumber): number {
-        return TNumber.compare(this.value, value);
+    public compareTo(other: number | NumberType): number {
+
+        other = NumberType.valueOf(other).getValue();
+
+        if(this.value > other) {
+            return 1;
+        }
+
+        if(this.value < other) {
+            return -1;
+        }
+
+        return 0;
     }
 
     /**
@@ -187,26 +197,27 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {number}
+     * TODO: Delete and set only NumberType.parseInteger and NumberType.parseFloat?
      */
     public static parse(value: any): number {
 
-        if(value instanceof TNumber) {
+        if(value instanceof NumberType) {
             return value.getValue();
         }
 
         let parsed = parseFloat(value);
 
-        return Number.isNaN(parsed) ? 0 : parsed;
+        return Number.isNaN(parsed) ? NumberType.DEFAULT_VALUE : parsed;
     }
 
     /**
      * Get number value of same value
      *
      * @param   {*} value
-     * @return  {TNumber}
+     * @return  {NumberType}
      */
-    public static valueOf(value: any): TNumber {
-        return new TNumber(value);
+    public static valueOf(value: any): NumberType {
+        return new NumberType(NumberType.parse(value));
     }
 
     /**
@@ -214,6 +225,7 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {boolean}
+     * TODO: Remove static modifier?
      */
     public static isNaN(value: any): boolean {
         return Number.isNaN(value);
@@ -224,6 +236,7 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {boolean}
+     * TODO: Remove static modifier?
      */
     public static isFinite(value: any): boolean {
         return Number.isFinite(value);
@@ -234,6 +247,7 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {boolean}
+     * TODO: Remove static modifier?
      */
     public static isInteger(value: any): boolean {
         return Number.isInteger(value);
@@ -244,6 +258,7 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {boolean}
+     * TODO: Remove static modifier?
      */
     public static isSafeInteger(value: any): boolean {
         return Number.isSafeInteger(value);
@@ -254,6 +269,7 @@ export class TNumber {
      *
      * @param   {*} value
      * @return  {number}
+     * TODO: Merge with NumberType.parse?
      */
     public static parseFloat(value: any): number {
         return Number.parseFloat(value);
@@ -265,42 +281,21 @@ export class TNumber {
      * @param   {*}         value
      * @param   {number}    [radix]
      * @return  {number}
+     * TODO: Merge with NumberType.parse?
      */
     public static parseInteger(value: any, radix?: number): number {
         return Number.parseInt(value, radix);
     }
 
     /**
-     * Get order of number respect another
-     *
-     * @param   {number | TNumber}  a
-     * @param   {number | TNumber}  b
-     * @return  {number}
-     */
-    public static compare(a: number | TNumber, b: number | TNumber): number {
-
-        a = TNumber.is(a) ? a : (<TNumber> a).getValue();
-        b = TNumber.is(b) ? b : (<TNumber> b).getValue();
-
-        if(a > b) {
-            return 1;
-        }
-
-        if(a < b) {
-            return -1;
-        }
-
-        return 0;
-    }
-
-    /**
      * Transform value to string
      *
-     * @param   {number | TNumber}  value
+     * @param   {number | NumberType}  value
      * @param   {number}            [radix]
      * @return  {string}
+     * TODO: This is realy necessary?
      */
-    public static toString(value: number | TNumber, radix?: number): string {
+    public static toString(value: number | NumberType, radix?: number): string {
         return value.toString(radix);
     }
 

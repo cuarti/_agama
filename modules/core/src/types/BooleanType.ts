@@ -6,6 +6,9 @@ import {Comparable} from '../helpers/Comparable';
 
 /**
  * Utility class for boolean type
+ *
+ * TODO: Add boolean operators like and, or, xor?
+ * TODO: Change DEFAULT_VALUE, TRUE and FALSE types from boolean to BooleanType?
  */
 export class BooleanType implements Equalitable, Cloneable, Comparable<boolean | BooleanType> {
 
@@ -66,7 +69,7 @@ export class BooleanType implements Equalitable, Cloneable, Comparable<boolean |
     /**
      * Set value
      *
-     * @param   {*} value
+     * @param   {boolean}   value
      * @return  {BooleanType}
      */
     public setValue(value: boolean): BooleanType {
@@ -82,15 +85,15 @@ export class BooleanType implements Equalitable, Cloneable, Comparable<boolean |
         return this.value === (BooleanType.is(other) ? other : (<BooleanType> other).getValue());
     }
 
-    public compareTo(value: boolean | BooleanType): number {
+    public compareTo(other: boolean | BooleanType): number {
 
-        value = BooleanType.is(value) ? value : (<BooleanType> value).getValue();
+        other = BooleanType.valueOf(other).getValue();
 
-        if(this.value && !value) {
+        if(this.value && !other) {
             return 1;
         }
 
-        if(!this.value && value) {
+        if(!this.value && other) {
             return -1;
         }
 
@@ -155,6 +158,7 @@ export class BooleanType implements Equalitable, Cloneable, Comparable<boolean |
      *
      * @param   {boolean | BooleanType}    value
      * @return  {string}
+     * TODO: This is realy necessary?
      */
     public static toString(value: boolean | BooleanType): string {
         return value.toString();

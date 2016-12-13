@@ -7,9 +7,9 @@ export interface Comparable<T> {
     /**
      * Get order of this respect another value
      *
-     * @param   {*} value
+     * @param   {*} other
      * @return  {number}
      */
-    compareTo(value: T): number;
+    compareTo(other: T): number;
 
 }

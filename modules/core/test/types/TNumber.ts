@@ -1,23 +1,23 @@
 
 import * as assert from 'assert';
-import {TNumber} from '../../src';
+import {NumberType} from '../../src';
 
 
-describe('@agama/core/types/TNumber', () => {
+describe('@agama/core/types/NumberType', () => {
 
-    it('TNumber.TYPE', () => assert.equal(TNumber.TYPE, 'number'));
+    it('NumberType.TYPE', () => assert.equal(NumberType.TYPE, 'number'));
 
-    it('TNumber.is', () => {
-        assert(TNumber.is(4));
-        assert(TNumber.is(3.14));
-        assert(TNumber.is(NaN));
-        assert(!TNumber.is(true));
-        assert(!TNumber.is(null));
-        assert(!TNumber.is(undefined));
-        assert(!TNumber.is('text'));
-        assert(!TNumber.is('219'));
-        assert(!TNumber.is({foo: 317}));
-        assert(!TNumber.is([0, 1]));
+    it('NumberType.is', () => {
+        assert(NumberType.is(4));
+        assert(NumberType.is(3.14));
+        assert(NumberType.is(NaN));
+        assert(!NumberType.is(true));
+        assert(!NumberType.is(null));
+        assert(!NumberType.is(undefined));
+        assert(!NumberType.is('text'));
+        assert(!NumberType.is('219'));
+        assert(!NumberType.is({foo: 317}));
+        assert(!NumberType.is([0, 1]));
     });
 
 });
