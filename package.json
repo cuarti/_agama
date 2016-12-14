@@ -1,10 +1,20 @@
 {
   "name": "agama-srcs",
   "version": "0.1.0",
+  "private": true,
   "description": "Typescript and JavaScript utilities library for Browser and Node",
-  "keywords": [],
-  "author": "Albert Cuartiella <cuarti1992@gmail.com>",
+  "homepage": "https://github.com/cuarti/agama",
+  "bugs": "https://github.com/cuarti/agama/issues",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuarti/agama.git"
+  },
+  "author": {
+    "name": "Albert Cuartiella",
+    "email": "cuarti1992@gmail.com"
+  },
+  "dependencies": {},
   "devDependencies": {
     "browserify": "^13.1.1",
     "del": "^2.2.2",
