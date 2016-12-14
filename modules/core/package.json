@@ -2,9 +2,18 @@
   "name": "@agama/core",
   "version": "0.1.0",
   "description": "Agama core module",
+  "homepage": "https://github.com/cuarti/agama",
+  "bugs": "https://github.com/cuarti/agama/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuarti/agama.git"
+  },
+  "author": {
+    "name": "Albert Cuartiella",
+    "email": "cuarti1992@gmail.com"
+  },
   "main": "src/index.js",
   "typings": "src/index",
-  "keywords": [],
-  "author": "Albert Cuartiella <cuarti1992@gmail.com>",
-  "license": "MIT"
+  "keywords": []
 }
