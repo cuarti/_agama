@@ -35,7 +35,6 @@ describe('@agama/core/types/BooleanType', () => {
         assert.deepEqual(new BooleanType(false).clone(), new BooleanType(false));
     });
 
-
     it('BooleanType#equals', () => {
         assert(new BooleanType(true).equals(true));
         assert(new BooleanType(false).equals(false));
