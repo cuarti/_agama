@@ -9,6 +9,7 @@ import {Comparable} from '../helpers/Comparable';
  *
  * TODO: Add number operators, like add minus, plus, divide, etc?
  * TODO: Change DEFAULT_VALUE, EPSILON, MAX_SAFE_INGER, MAX_INTEGER, etc types from number to NumberType?
+ * TODO: Add functions from Java Numbers (Number, Byte, Integer, Long, Short, Float, Double)
  */
 export class NumberType implements Equalitable, Cloneable, Comparable<number | NumberType> {
 
