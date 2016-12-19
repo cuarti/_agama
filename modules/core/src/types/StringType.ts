@@ -5,7 +5,7 @@
  *
  * TODO: See http://epeli.github.io/underscore.string/
  */
-export class TString {
+export class StringType {
 
     /**
      * Type for string
