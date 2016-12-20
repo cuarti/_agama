@@ -14,6 +14,21 @@ export class StringType {
      */
     public static readonly TYPE: string = 'string';
 
+    private value: string;
+
+    public constructor(value: string) {
+        this.value = value;
+    }
+
+    public getValue(): string {
+        return this.value;
+    }
+
+    public setValue(value: string): StringType {
+        this.value = value;
+        return this;
+    }
+
     /**
      * Get if value is string
      *
