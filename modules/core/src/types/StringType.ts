@@ -14,6 +14,8 @@ export class StringType {
      */
     public static readonly TYPE: string = 'string';
 
+    public static readonly DEFAULT_VALUE: string = '';
+
     private value: string;
 
     public constructor(value: string) {
