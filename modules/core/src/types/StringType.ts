@@ -1,11 +1,15 @@
 
+import {Equalitable} from '../helpers/Equalitable';
+import {Cloneable} from '../helpers/Cloneable';
+import {Comparable} from '../helpers/Comparable';
+
 
 /**
  * Utility class for string type
  *
  * TODO: See http://epeli.github.io/underscore.string/
  */
-export class StringType {
+export class StringType implements Equalitable, Cloneable, Comparable<string | StringType> {
 
     /**
      * Type for string
@@ -14,21 +18,71 @@ export class StringType {
      */
     public static readonly TYPE: string = 'string';
 
+    /**
+     * Default value
+     *
+     * @type    {string}
+     */
     public static readonly DEFAULT_VALUE: string = '';
 
+    /**
+     * Value
+     *
+     * @type    {string}
+     */
     private value: string;
 
+    /**
+     * Constructor method
+     *
+     * @param   {string}    value
+     * @constructor
+     */
     public constructor(value: string) {
         this.value = value;
     }
 
+    /**
+     * Get value
+     *
+     * @return  {string}
+     */
     public getValue(): string {
         return this.value;
     }
 
+    /**
+     * Set value
+     *
+     * @param   {string}    value
+     * @return  {BooleanType}
+     */
     public setValue(value: string): StringType {
         this.value = value;
         return this;
+    }
+
+    public clone(): StringType {
+        return new StringType(this.value);
+    }
+
+    public equals(other: StringType): boolean {
+        return this.value === (StringType.is(other) ? other : (<StringType> other).getValue());
+    }
+
+    public compareTo(other: string | StringType): number {
+
+        other = StringType.valueOf(other).getValue();
+
+        if(this.value > other) {
+            return 1;
+        }
+
+        if(this.value < other) {
+            return -1;
+        }
+
+        return 0;
     }
 
     /**
